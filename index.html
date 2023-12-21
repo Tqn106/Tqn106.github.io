@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <meta http-equiv="x-ua-compatible" content="ie=edge"> -->
+  <meta http-equiv="X-UA-Compatible" content="IE=11" />  
+
+
+  <title>الكتاب الالكتروني للصف الأول ثانوي | البرمجة بلغة PYTHON</title>
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="css/plugins/font-awesome/css/font-awesome.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="css/adminlte.min.css">
+  <!-- bootstrap rtl -->
+  <link rel="stylesheet" href="css/bootstrap-rtl.min.css">
+  <!-- template rtl version -->
+  <link rel="stylesheet" href="css/custom-style.css">
+
+</head>
+<body class="hold-transition sidebar-mini">
+<div ng-app="app">
+<div class="wrapper" ng-controller="myCtrl">
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
+    <!-- Right navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="#" class="nav-link"><b>البرمجة بلغة PYTHON تقن106</b></a>
+      </li>
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="#" ng-click="reloadPage();" class="brand-link">
+      <img src="img/BahrainLogo.png" alt="Bahrain Logo" class="brand-image img-circle elevation-3">
+      <span class="brand-text font-weight-light">البداية</span>
+    </a>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- search form (Optional) -->
+        <div class="input-group">
+            <input ng-change='searchTextChange()' id="searchText" ng-model="searchText" type="search" class="form-control" placeholder="بحث...">
+            <span title="مسح" id="searchclear" class="fa fa-eraser fa-lg" ng-if="searchText" ng-click="clearSearch()" style="color: #ffffff;padding-top: 0.7rem;padding-bottom:0.5rem;padding-right:0.5rem;"></span>
+          </div>
+        <!-- /.search form -->
+      <div>
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="true">
+            <!-- Add icons to the links using the .nav-icon class
+                 with font-awesome or any other icon font library -->
+                 <!-- Class to open menu by default is : menu-open -->
+            <li class="nav-item has-treeview" ng-class="{'menu-open': $first}" ng-repeat="group in topics | orderBy:'sortOrder'">
+              <a href="#" class="nav-link" style="color: #ffffff;">
+                <i class="nav-icon fa fa-{{group.icon}} pull-right"></i>
+                <p dir="rtl">
+                  {{group.title}}
+                  <i class="right fa fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item" ng-repeat="sub in group.subGroups" ng-show="filterByGroup.length">
+                    <div dir="rtl" style="text-align:center;background-color: #246F22;font-weight: bold;" title="{{item['group-title']}}">
+                        {{sub['sub-title']}}
+                      </div>
+                      <div  ng-repeat="item in filterByGroup = (sub.items | filter:searchText)" class="div_hover overflow-auto">
+                         <div>
+                          <a ng-if="item.Vurl != ''" href="#" ng-click="$event.preventDefault(); linkClicked(item.Vurl)" class=" fa fa-lg fa-{{item.Vicon}} pull-right" target="fr" data-toggle="tooltip" title="فيديو" style="color: #ffffff;padding-top: 0.5rem;padding-bottom:0.5rem;padding-left: 0.2rem;padding-right:0.1rem;" ></a>
+									
+                          <div style="word-wrap: break-word;">
+                            <a href="#" ng-click="$event.preventDefault(); linkClicked(item.Durl)" class="fa fa-lg fa-{{item.Dicon}} pull-right" target="fr" data-toggle="tooltip" title="دليل" style="color: #ffffff;padding-top: 0.5rem;padding-bottom:0.5rem;padding-left: 0.2rem;padding-right:0.1rem;"></a>
+                         </div>
+                        <a style="color: #e4e2e2;padding-left: 0.2rem;padding-right:0.2rem;" href="#" ng-click="$event.preventDefault(); linkClicked(item.Durl)" class="nav-link">
+                            <!-- <i class="fa fa-circle-o nav-icon pull-right"></i> -->
+                            <p style="direction: rtl;">{{item['item-title']}}</p>
+                          </a>
+                      </div>
+
+                 
+                </li>
+                <li class="nav-item" ng-if="group.dnload != ''">
+                  <a style="color: #060606;background-color: #cccccc;" download href="{{group.dnload}}" class="nav-link"> 
+                    <i class="fa fa-download nav-icon pull-right"></i>
+                    <p>{{group.dnloadText}}</p>
+                  </a>
+                </li>
+              </ul>
+          </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+      </div>
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <!-- <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">المحتوى</h1>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12">
+           
+            <div class="card card-primary card-outline" style="margin-top: 10px;">
+              <div class="card-body">
+                <!-- <h5 class="card-title mb-2 text-bold">عنوان القسم</h5> -->
+                    <div  class="text-center" style="height : 85vh;">
+                      <div ng-if="!attachment" ng-bind-html="content" class="text-center">
+                      </div>
+                        <div ng-if="attachment" ng-html-bind="content">
+                          
+                        </div>
+                       
+                    </div>
+              </div>
+               
+              </div>
+            </div><!-- /.card -->
+          </div>
+          <!-- /.col-md-12 -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar -->
+  <!-- <aside class="control-sidebar control-sidebar-dark">
+    <div class="p-3">
+      <h5>حول</h5>
+      <p>تم التصميم من قبل فريق في إدارة المناهج</p>
+    </div>
+  </aside> -->
+  <!-- /.control-sidebar -->
+
+  <!-- Main Footer -->
+  <!-- <footer class="main-footer">
+    <div class="float-right d-none d-sm-inline">
+      إدارة المناهج
+    </div>
+  </footer> -->
+</div>
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+
+<!-- jQuery -->
+<script src="js/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="js/adminlte.min.js"></script>
+<!-- angularjs -->
+<!-- <script src="js/angular.min.js"></script> -->
+<script src="js/angular.min.js"></script>
+
+<!-- angularjs app -->
+<script src="js/app-prod.js"></script>
+
+<script>
+  $( document ).ready(function() {
+    $('#carouselExampleControls').carousel({
+  interval: 3000,
+  cycle: true
+}); 
+});
+
+
+</script>
+</body>
+</html>
